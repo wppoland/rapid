@@ -8,7 +8,7 @@ quantities, and add everything in a single submit.
 ## Features
 
 - `[rapid_order]` shortcode renders a searchable product table.
-- Live AJAX product search by name or SKU, with optional category filter.
+- Live AJAX product search by name or SKU.
 - Choose the product scope: all products, or selected categories only.
 - Batched add-to-cart with a single combined notice.
 - Selectable columns (image, SKU, price, stock) and configurable results per page.

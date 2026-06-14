@@ -19,9 +19,6 @@ return [
     // Term IDs of product categories the form is limited to (scope = categories).
     'categories' => [],
 
-    // Storefront category filter dropdown on the form.
-    'show_category_filter' => true,
-
     // Columns shown in the order table.
     'show_image' => true,
     'show_sku'   => true,

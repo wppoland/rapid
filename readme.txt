@@ -24,7 +24,6 @@ what they want and value speed over browsing.
 
 * A `[rapid_order]` shortcode that renders a searchable product table/form.
 * Live AJAX product search by name or SKU (debounced, no page reload).
-* Optional category filter dropdown on the form.
 * Configurable product scope: **all products** or **selected categories only**.
 * Batched add-to-cart: set quantities on many products, add them all at once with a single combined notice.
 * Choose which columns to show: image, SKU, price, stock.
@@ -39,10 +38,6 @@ what they want and value speed over browsing.
 Create a page (e.g. "Quick Order") and add the shortcode:
 
 `[rapid_order]`
-
-Optionally pre-filter to a category by slug:
-
-`[rapid_order category="accessories"]`
 
 == Installation ==
 
@@ -81,4 +76,4 @@ All products with a quantity are added in one go and you get a single notice.
 == Changelog ==
 
 = 0.1.0 =
-* Initial release: `[rapid_order]` shortcode with AJAX product search by name or SKU, optional category filter, configurable product scope (all / selected categories), batched add-to-cart with a single notice, selectable columns (image / SKU / price / stock) and results-per-page.
+* Initial release: `[rapid_order]` shortcode with AJAX product search by name or SKU, configurable product scope (all / selected categories), batched add-to-cart with a single notice, selectable columns (image / SKU / price / stock) and results-per-page.

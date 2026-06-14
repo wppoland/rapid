@@ -1,6 +1,5 @@
 /**
- * Rapid — admin settings styles. Cards, inline-help popovers and a polished,
- * dark-mode-aware layout. Motion guarded by prefers-reduced-motion.
+ * Rapid — admin settings styles. Cards and a polished, dark-mode-aware layout.
  */
 
 .rapid-admin {
@@ -61,45 +60,6 @@
     display: none;
 }
 
-.rapid-help {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 18px;
-    height: 18px;
-    margin-left: 0.35rem;
-    padding: 0;
-    border: 1px solid var(--rapid-card-border);
-    border-radius: 50%;
-    background: #f6f7f7;
-    color: var(--rapid-muted);
-    font-size: 11px;
-    line-height: 1;
-    cursor: help;
-    vertical-align: middle;
-    transition: background-color 0.15s ease, color 0.15s ease;
-}
-
-.rapid-help:hover,
-.rapid-help:focus-visible {
-    background: var(--rapid-accent);
-    color: #fff;
-    border-color: var(--rapid-accent);
-}
-
-.rapid-tip {
-    max-width: 320px;
-    margin: 0;
-    padding: 0.75rem 1rem;
-    border: 1px solid var(--rapid-card-border);
-    border-radius: 8px;
-    background: #1d2327;
-    color: #fff;
-    font-size: 13px;
-    line-height: 1.5;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
-}
-
 @media (prefers-color-scheme: dark) {
     .rapid-admin {
         --rapid-card-bg: #1e1e1e;
@@ -109,15 +69,5 @@
 
     .rapid-intro {
         background: linear-gradient(135deg, #1c2530, #1e1e1e);
-    }
-
-    .rapid-help {
-        background: #2c2c2c;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .rapid-help {
-        transition: none;
     }
 }

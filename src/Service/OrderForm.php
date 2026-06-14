@@ -13,8 +13,8 @@ defined('ABSPATH') || exit;
  *
  * Renders a searchable product table where customers set quantities and add many
  * products to the cart in a single submit. Provides an AJAX product-search
- * endpoint (scoped to the configured product scope and an optional category
- * filter) and a batched add-to-cart handler that emits one combined notice.
+ * endpoint (scoped to the configured product scope) and a batched add-to-cart
+ * handler that emits one combined notice.
  *
  * The form degrades gracefully without JavaScript: it renders the first page of
  * in-scope products as a plain table and the submit button still batches them
@@ -67,23 +67,12 @@ final class OrderForm implements HasHooks
     /**
      * Render the [rapid_order] shortcode. Returns escaped HTML, or an empty
      * string when disabled.
-     *
-     * Attributes:
-     *  - `category` Optional category slug to pre-filter the form.
-     *
-     * @param array<string, mixed>|string $atts
      */
-    public function render(mixed $atts): string
+    public function render(): string
     {
         if (! $this->isEnabled()) {
             return '';
         }
-
-        $atts = shortcode_atts(
-            ['category' => ''],
-            is_array($atts) ? $atts : [],
-            'rapid_order',
-        );
 
         $settings = $this->settings();
 
@@ -97,20 +86,15 @@ final class OrderForm implements HasHooks
                 'searching' => __('Searching…', 'rapid'),
                 'noResults' => __('No products found.', 'rapid'),
                 'error'     => __('Something went wrong. Please try again.', 'rapid'),
-                'add'       => __('Add', 'rapid'),
             ],
         ]);
 
-        $preCategory = sanitize_title((string) $atts['category']);
-
         ob_start();
         $this->renderTemplate('order-form', [
-            'settings'    => $settings,
-            'categories'  => $this->filterCategories($settings),
-            'preCategory' => $preCategory,
-            'products'    => $this->initialProducts($settings, $preCategory),
-            'columns'     => $this->columnCount($settings),
-            'notice'      => $this->consumeNotice(),
+            'settings' => $settings,
+            'products' => $this->initialProducts($settings),
+            'columns'  => $this->columnCount($settings),
+            'notice'   => $this->consumeNotice(),
         ]);
 
         return (string) ob_get_clean();
@@ -181,7 +165,7 @@ final class OrderForm implements HasHooks
 
     /**
      * AJAX product search. Returns a small JSON payload of in-scope products that
-     * match the term (by name or SKU), respecting the optional category filter.
+     * match the term (by name or SKU).
      */
     public function ajaxSearch(): void
     {
@@ -195,11 +179,10 @@ final class OrderForm implements HasHooks
             wp_send_json_error(['message' => __('Your session expired. Please reload the page.', 'rapid')], 403);
         }
 
-        $term     = isset($_GET['term']) ? sanitize_text_field(wp_unslash($_GET['term'])) : '';
-        $category = isset($_GET['category']) ? sanitize_title(wp_unslash($_GET['category'])) : '';
+        $term = isset($_GET['term']) ? sanitize_text_field(wp_unslash($_GET['term'])) : '';
 
         $settings = $this->settings();
-        $products = $this->queryProducts($settings, $term, $category);
+        $products = $this->queryProducts($settings, $term);
 
         $items = [];
 
@@ -217,9 +200,9 @@ final class OrderForm implements HasHooks
      * @param array<string, mixed> $settings
      * @return array<int, array<string, mixed>>
      */
-    private function initialProducts(array $settings, string $category): array
+    private function initialProducts(array $settings): array
     {
-        $products = $this->queryProducts($settings, '', $category);
+        $products = $this->queryProducts($settings, '');
         $items    = [];
 
         foreach ($products as $product) {
@@ -230,13 +213,13 @@ final class OrderForm implements HasHooks
     }
 
     /**
-     * Query purchasable products in scope, optionally filtered by search term and
-     * category. Variations are excluded for simplicity in the FREE form.
+     * Query purchasable products in scope, optionally filtered by search term.
+     * Variations are excluded for simplicity.
      *
      * @param array<string, mixed> $settings
      * @return array<int, \WC_Product>
      */
-    private function queryProducts(array $settings, string $term, string $category): array
+    private function queryProducts(array $settings, string $term): array
     {
         $perPage = $this->perPage($settings);
 
@@ -254,7 +237,7 @@ final class OrderForm implements HasHooks
             $args['s'] = $term;
         }
 
-        $categorySlugs = $this->resolveCategorySlugs($settings, $category);
+        $categorySlugs = $this->scopeCategorySlugs($settings);
 
         if (null === $categorySlugs) {
             // Scope is "categories" but none are valid/selected — nothing to show.
@@ -277,44 +260,29 @@ final class OrderForm implements HasHooks
     }
 
     /**
-     * Resolve the effective category slugs to query.
+     * Resolve the configured scope into category slugs to query.
      *
      * Returns:
      *  - a list of slugs to filter by, or
-     *  - [] for "no category restriction", or
+     *  - [] for "no category restriction" (scope = all), or
      *  - null when scope is "categories" but there is nothing valid to show.
      *
      * @param array<string, mixed> $settings
      * @return array<int, string>|null
      */
-    private function resolveCategorySlugs(array $settings, string $requested): ?array
+    private function scopeCategorySlugs(array $settings): ?array
     {
-        $scopeCategoryIds = ('categories' === ($settings['scope'] ?? 'all'))
-            ? array_map('absint', (array) ($settings['categories'] ?? []))
-            : [];
+        if ('categories' !== ($settings['scope'] ?? 'all')) {
+            return [];
+        }
 
-        $scopeSlugs = $this->idsToSlugs($scopeCategoryIds);
+        $scopeSlugs = $this->idsToSlugs(array_map('absint', (array) ($settings['categories'] ?? [])));
 
-        if ('categories' === ($settings['scope'] ?? 'all') && [] === $scopeSlugs) {
+        if ([] === $scopeSlugs) {
             return null;
         }
 
-        if ('' === $requested) {
-            return $scopeSlugs;
-        }
-
-        $term = get_term_by('slug', $requested, 'product_cat');
-
-        if (! $term instanceof \WP_Term) {
-            return $scopeSlugs;
-        }
-
-        // When a scope is set, the requested category must fall within it.
-        if ([] !== $scopeSlugs && ! in_array($term->slug, $scopeSlugs, true)) {
-            return $scopeSlugs;
-        }
-
-        return [$term->slug];
+        return $scopeSlugs;
     }
 
     /**
@@ -392,43 +360,6 @@ final class OrderForm implements HasHooks
         }
 
         return __('In stock', 'rapid');
-    }
-
-    /**
-     * Category terms available for the storefront filter dropdown, limited to the
-     * configured scope when scope = categories.
-     *
-     * @param array<string, mixed> $settings
-     * @return array<int, \WP_Term>
-     */
-    private function filterCategories(array $settings): array
-    {
-        if (empty($settings['show_category_filter'])) {
-            return [];
-        }
-
-        if ('categories' === ($settings['scope'] ?? 'all')) {
-            $terms = [];
-
-            foreach (array_map('absint', (array) ($settings['categories'] ?? [])) as $id) {
-                $term = get_term($id, 'product_cat');
-                if ($term instanceof \WP_Term) {
-                    $terms[] = $term;
-                }
-            }
-
-            return $terms;
-        }
-
-        $terms = get_terms([
-            'taxonomy'   => 'product_cat',
-            'hide_empty' => true,
-            'orderby'    => 'name',
-        ]);
-
-        return is_array($terms)
-            ? array_values(array_filter($terms, static fn ($t): bool => $t instanceof \WP_Term))
-            : [];
     }
 
     /**

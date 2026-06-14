@@ -32,19 +32,13 @@
     margin: 0;
 }
 
-.rapid__filter-field {
-    flex: 0 1 14rem;
-    margin: 0;
-}
-
 .rapid__controls label {
     display: block;
     margin-bottom: 0.25rem;
     font-weight: 600;
 }
 
-.rapid__search,
-.rapid__category {
+.rapid__search {
     width: 100%;
     box-sizing: border-box;
     padding: 0.5rem 0.65rem;
@@ -54,8 +48,7 @@
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.rapid__search:focus-visible,
-.rapid__category:focus-visible {
+.rapid__search:focus-visible {
     outline: none;
     border-color: var(--rapid-accent);
     box-shadow: 0 0 0 3px rgba(34, 113, 177, 0.2);
@@ -206,7 +199,6 @@
 
 @media (prefers-reduced-motion: reduce) {
     .rapid__search,
-    .rapid__category,
     .rapid__qty,
     .rapid__row {
         transition: none;

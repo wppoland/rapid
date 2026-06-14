@@ -3,8 +3,8 @@
  *
  * Progressive enhancement: the form works without JavaScript (it renders the
  * first page of products and the submit batches them server-side). This script
- * upgrades the search box and category filter to query products via AJAX and
- * rebuild the table in place, preserving any quantities already typed.
+ * upgrades the search box to query products via AJAX and rebuild the table in
+ * place, preserving any quantities already typed.
  *
  * No dependencies.
  */
@@ -20,7 +20,6 @@
 
 	var i18n = data.i18n || {};
 	var search = root.querySelector('.rapid__search');
-	var category = root.querySelector('.rapid__category');
 	var body = root.querySelector('.rapid__body');
 	var status = root.querySelector('.rapid__status');
 
@@ -162,7 +161,6 @@
 
 	function fetchProducts() {
 		var term = search ? search.value.trim() : '';
-		var cat = category ? category.value : '';
 
 		if (currentController && typeof currentController.abort === 'function') {
 			currentController.abort();
@@ -172,7 +170,6 @@
 		params.set('action', data.action);
 		params.set('nonce', data.nonce);
 		params.set('term', term);
-		params.set('category', cat);
 
 		setStatus(i18n.searching || 'Searching…');
 
@@ -209,9 +206,5 @@
 
 	if (search) {
 		search.addEventListener('input', debouncedFetch);
-	}
-
-	if (category) {
-		category.addEventListener('change', fetchProducts);
 	}
 })();

@@ -5,8 +5,6 @@
  * Provided variables (escaped on output here):
  *
  * @var array<string, mixed>                 $settings    Merged plugin settings.
- * @var array<int, \WP_Term>                 $categories  Category terms for the filter.
- * @var string                               $preCategory Pre-selected category slug.
  * @var array<int, array<string, mixed>>     $products    Initial product rows.
  * @var int                                  $columns     Table column count.
  * @var string                               $notice      Pre-rendered WC notices HTML.
@@ -22,7 +20,6 @@ $rapid_show_image = ! empty($settings['show_image']);
 $rapid_show_sku   = ! empty($settings['show_sku']);
 $rapid_show_price = ! empty($settings['show_price']);
 $rapid_show_stock = ! empty($settings['show_stock']);
-$rapid_show_cats  = ! empty($settings['show_category_filter']) && [] !== $categories;
 ?>
 <div
     class="rapid"
@@ -48,21 +45,6 @@ $rapid_show_cats  = ! empty($settings['show_category_filter']) && [] !== $catego
                 autocomplete="off"
             />
         </p>
-
-        <?php if ($rapid_show_cats) : ?>
-            <p class="rapid__filter-field">
-                <label for="rapid-category"><?php esc_html_e('Category', 'rapid'); ?></label>
-                <select id="rapid-category" class="rapid__category">
-                    <option value=""><?php esc_html_e('All categories', 'rapid'); ?></option>
-                    <?php foreach ($categories as $rapid_term) : ?>
-                        <option
-                            value="<?php echo esc_attr($rapid_term->slug); ?>"
-                            <?php selected($preCategory, $rapid_term->slug); ?>
-                        ><?php echo esc_html($rapid_term->name); ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </p>
-        <?php endif; ?>
     </div>
 
     <form method="post" class="rapid__form">

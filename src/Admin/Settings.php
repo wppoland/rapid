@@ -12,10 +12,10 @@ use Rapid\Contract\HasHooks;
  * Admin settings page registered as a WooCommerce submenu.
  *
  * Stores everything in the `rapid_settings` option (array): the master toggle,
- * product scope (all / selected categories), the selected category IDs, the
- * storefront category-filter toggle, which columns are shown (image / SKU /
- * price / stock) and the search results-per-page. All output is escaped; all
- * input is sanitised and clamped on save.
+ * product scope (all / selected categories), the selected category IDs, which
+ * columns are shown (image / SKU / price / stock) and the search
+ * results-per-page. All output is escaped; all input is sanitised and clamped on
+ * save.
  */
 final class Settings implements HasHooks
 {
@@ -28,9 +28,6 @@ final class Settings implements HasHooks
     /** Search results-per-page bounds for the admin number field. */
     private const MIN_PER_PAGE = 1;
     private const MAX_PER_PAGE = 50;
-
-    /** Incremented to give each inline-help control a unique id/anchor. */
-    private int $helpSeq = 0;
 
     public function registerHooks(): void
     {
@@ -129,7 +126,6 @@ final class Settings implements HasHooks
                             <tr>
                                 <th scope="row">
                                     <?php esc_html_e('Enable quick order', 'rapid'); ?>
-                                    <?php $this->help(__('The master switch. When off, the [rapid_order] shortcode renders nothing and its assets are not loaded — zero front-end impact.', 'rapid')); ?>
                                 </th>
                                 <td>
                                     <label for="rapid_enabled">
@@ -155,7 +151,6 @@ final class Settings implements HasHooks
                             <tr>
                                 <th scope="row">
                                     <label for="rapid_scope"><?php esc_html_e('Which products?', 'rapid'); ?></label>
-                                    <?php $this->help(__('Choose whether the form offers every purchasable product, or only those in the categories you pick below.', 'rapid')); ?>
                                 </th>
                                 <td>
                                     <select
@@ -178,7 +173,6 @@ final class Settings implements HasHooks
                             >
                                 <th scope="row">
                                     <?php esc_html_e('Categories', 'rapid'); ?>
-                                    <?php $this->help(__('Tick the product categories the form should cover. Only used when scope is "Selected categories only".', 'rapid')); ?>
                                 </th>
                                 <td>
                                     <?php if ([] === $categories) : ?>
@@ -201,15 +195,6 @@ final class Settings implements HasHooks
                                     <?php endif; ?>
                                 </td>
                             </tr>
-                            <?php
-                            $this->checkboxRow(
-                                'show_category_filter',
-                                __('Category filter', 'rapid'),
-                                __('Show a category dropdown on the form so customers can narrow results.', 'rapid'),
-                                $settings,
-                                __('Adds a category selector above the table. In "Selected categories" scope it lists only your chosen categories.', 'rapid'),
-                            );
-                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -220,10 +205,10 @@ final class Settings implements HasHooks
                     <table class="form-table" role="presentation">
                         <tbody>
                             <?php
-                            $this->checkboxRow('show_image', __('Image', 'rapid'), __('Show a product thumbnail.', 'rapid'), $settings, __('Displays a small product image. Turn off for a denser, faster table.', 'rapid'));
-                            $this->checkboxRow('show_sku', __('SKU', 'rapid'), __('Show the product SKU.', 'rapid'), $settings, __('Helpful for trade and wholesale buyers who order by code.', 'rapid'));
-                            $this->checkboxRow('show_price', __('Price', 'rapid'), __('Show the product price.', 'rapid'), $settings, __('Shows each product\'s price (including any sale price) in the table.', 'rapid'));
-                            $this->checkboxRow('show_stock', __('Stock', 'rapid'), __('Show stock availability.', 'rapid'), $settings, __('Shows a short stock label so buyers know what is available before ordering.', 'rapid'));
+                            $this->checkboxRow('show_image', __('Image', 'rapid'), __('Show a product thumbnail.', 'rapid'), $settings);
+                            $this->checkboxRow('show_sku', __('SKU', 'rapid'), __('Show the product SKU.', 'rapid'), $settings);
+                            $this->checkboxRow('show_price', __('Price', 'rapid'), __('Show the product price.', 'rapid'), $settings);
+                            $this->checkboxRow('show_stock', __('Stock', 'rapid'), __('Show stock availability.', 'rapid'), $settings);
                             ?>
                         </tbody>
                     </table>
@@ -236,7 +221,6 @@ final class Settings implements HasHooks
                             <tr>
                                 <th scope="row">
                                     <label for="rapid_per_page"><?php esc_html_e('Results per page', 'rapid'); ?></label>
-                                    <?php $this->help(__('How many products to show per search. Keep it modest for snappy results on large catalogues.', 'rapid')); ?>
                                 </th>
                                 <td>
                                     <input
@@ -272,41 +256,17 @@ final class Settings implements HasHooks
     }
 
     /**
-     * Render an accessible inline-help affordance: a "?" button that toggles a
-     * popover describing the adjacent setting. Uses the native Popover API and is
-     * also wired via aria-describedby for screen readers.
-     */
-    private function help(string $text): void
-    {
-        $id = 'rapid-help-' . (++$this->helpSeq);
-        ?>
-        <button
-            type="button"
-            class="rapid-help"
-            aria-label="<?php esc_attr_e('More information', 'rapid'); ?>"
-            aria-describedby="<?php echo esc_attr($id); ?>"
-            aria-expanded="false"
-            popovertarget="<?php echo esc_attr($id); ?>"
-        >?</button>
-        <div id="<?php echo esc_attr($id); ?>" class="rapid-tip" role="tooltip" popover hidden>
-            <?php echo esc_html($text); ?>
-        </div>
-        <?php
-    }
-
-    /**
      * Render a single checkbox row in the form-table.
      *
      * @param array<string, mixed> $settings
      */
-    private function checkboxRow(string $key, string $label, string $help, array $settings, string $tip = ''): void
+    private function checkboxRow(string $key, string $label, string $help, array $settings): void
     {
         $id = 'rapid_' . $key;
         ?>
         <tr>
             <th scope="row">
                 <?php echo esc_html($label); ?>
-                <?php if ('' !== $tip) { $this->help($tip); } ?>
             </th>
             <td>
                 <label for="<?php echo esc_attr($id); ?>">
@@ -357,19 +317,16 @@ final class Settings implements HasHooks
         $perPage = isset($raw['per_page']) ? (int) $raw['per_page'] : 12;
         $perPage = max(self::MIN_PER_PAGE, min(self::MAX_PER_PAGE, $perPage));
 
-        $sanitized = [
-            'enabled'              => ! empty($raw['enabled']),
-            'scope'                => $scope,
-            'categories'           => $categories,
-            'show_category_filter' => ! empty($raw['show_category_filter']),
-            'show_image'           => ! empty($raw['show_image']),
-            'show_sku'             => ! empty($raw['show_sku']),
-            'show_price'           => ! empty($raw['show_price']),
-            'show_stock'           => ! empty($raw['show_stock']),
-            'per_page'             => $perPage,
+        return [
+            'enabled'    => ! empty($raw['enabled']),
+            'scope'      => $scope,
+            'categories' => $categories,
+            'show_image' => ! empty($raw['show_image']),
+            'show_sku'   => ! empty($raw['show_sku']),
+            'show_price' => ! empty($raw['show_price']),
+            'show_stock' => ! empty($raw['show_stock']),
+            'per_page'   => $perPage,
         ];
-
-        return (array) apply_filters('rapid_sanitize_settings', $sanitized, $raw);
     }
 
     /**
