@@ -14,10 +14,12 @@
  */
 
 .rapid {
-    /* Rush-amber dispatch accent — the world of express orders, not WC blue. */
-    --rapid-accent: #f4561e;
-    --rapid-accent-strong: #c93c0c;
-    --rapid-accent-soft: rgba(244, 86, 30, 0.16);
+    /* Rush-amber dispatch accent — the world of express orders, not WC blue.
+       Deepened to clear WCAG AA: white label on the accent fill and the queued
+       chip edge over the soft tint both need >=4.5:1 / >=3:1 respectively. */
+    --rapid-accent: #cf4209;
+    --rapid-accent-strong: #a8330a;
+    --rapid-accent-soft: rgba(207, 66, 9, 0.16);
     --rapid-accent-ink: #ffffff;
 
     --rapid-border: #e2e4e7;
