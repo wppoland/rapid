@@ -49,5 +49,14 @@ final class Plugin
                 $service->registerHooks();
             }
         }
+
+        /**
+         * Fires after Rapid has fully booted: migrations have run and every
+         * FREE hook subscriber is registered. Add-ons (e.g. Rapid Pro) hook
+         * this to extend the shared container and register their own services.
+         *
+         * @param Plugin $plugin The booted plugin instance.
+         */
+        do_action('rapid/booted', $this);
     }
 }
