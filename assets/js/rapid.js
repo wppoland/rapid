@@ -207,4 +207,53 @@
 	if (search) {
 		search.addEventListener('input', debouncedFetch);
 	}
+
+	// --- Presentation only: dispatch feedback. Does not alter submit behaviour. ---
+	var form = root.querySelector('.rapid__form');
+	var submit = root.querySelector('.rapid__submit');
+	var tallyCount = root.querySelector('.rapid__tally-count');
+
+	// Mark a row as queued and keep the running tally in sync. Rows with a
+	// quantity get the amber edge so the buyer watches the order build.
+	function syncTally() {
+		var inputs = body.querySelectorAll('.rapid__qty');
+		var queued = 0;
+
+		Array.prototype.forEach.call(inputs, function (input) {
+			var qty = parseInt(input.value, 10);
+			var hasQty = !input.disabled && qty > 0;
+			var row = input.closest ? input.closest('.rapid__row') : null;
+
+			if (row) {
+				row.classList.toggle('is-queued', hasQty);
+			}
+			if (hasQty) {
+				queued += 1;
+			}
+		});
+
+		if (tallyCount) {
+			tallyCount.textContent = String(queued);
+		}
+	}
+
+	// Delegate so re-rendered rows (after a search) stay wired up.
+	root.addEventListener('input', function (event) {
+		if (event.target && event.target.classList && event.target.classList.contains('rapid__qty')) {
+			syncTally();
+		}
+	});
+
+	// Fire the velocity streak when the order is dispatched, then mark busy.
+	if (form && submit) {
+		form.addEventListener('submit', function () {
+			submit.classList.remove('is-launching');
+			// Force reflow so the animation restarts on repeat submits.
+			void submit.offsetWidth;
+			submit.classList.add('is-launching');
+			submit.setAttribute('aria-busy', 'true');
+		});
+	}
+
+	syncTally();
 })();

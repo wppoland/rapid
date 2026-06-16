@@ -134,10 +134,14 @@ $rapid_show_stock = ! empty($settings['show_stock']);
             </tbody>
         </table>
 
-        <p class="rapid__actions">
+        <div class="rapid__actions">
             <button type="submit" name="rapid_submit" value="1" class="button alt rapid__submit">
                 <?php esc_html_e('Add selected to cart', 'rapid'); ?>
             </button>
-        </p>
+            <span class="rapid__tally" aria-live="polite">
+                <span class="rapid__tally-count">0</span>
+                <?php esc_html_e('lines queued', 'rapid'); ?>
+            </span>
+        </div>
     </form>
 </div>
