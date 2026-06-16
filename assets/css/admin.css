@@ -6,16 +6,26 @@
     --rapid-card-bg: #fff;
     --rapid-card-border: #dcdcde;
     --rapid-muted: #50575e;
-    --rapid-accent: #2271b1;
+    /* Family accent — the storefront's rush-amber, kept restrained in admin.
+       #a8330a clears WCAG AA for text (6.68:1 on #fff, 5.87:1 on #f0f0f1);
+       #cf4209 is used only as a >=3:1 UI edge (section border / shortcode). */
+    --rapid-accent: #a8330a;
+    --rapid-accent-edge: #cf4209;
     max-width: 820px;
 }
 
 .rapid-intro {
-    background: linear-gradient(135deg, #f0f6fc, #f6f7f7);
+    background: linear-gradient(135deg, #fdf3ee, #f6f7f7);
     border: 1px solid var(--rapid-card-border);
+    border-left: 3px solid var(--rapid-accent-edge);
     border-radius: 10px;
     padding: 1.25rem 1.5rem;
     margin: 1rem 0 1.5rem;
+}
+
+.rapid-intro code {
+    color: var(--rapid-accent);
+    background: rgba(207, 66, 9, 0.08);
 }
 
 .rapid-intro h2 {
@@ -39,6 +49,35 @@
 .rapid-card h2 {
     border-bottom: 1px solid var(--rapid-card-border);
     padding-bottom: 0.5rem;
+}
+
+/* Small inline preview of the rendered shortcode markup, so the admin sees the
+   effect of the column toggles without leaving the page. */
+.rapid-preview {
+    margin: 0.5rem 0 0;
+    border: 1px solid var(--rapid-card-border);
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 13px;
+}
+
+.rapid-preview-head,
+.rapid-preview-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1rem;
+    padding: 0.45rem 0.75rem;
+}
+
+.rapid-preview-head {
+    background: #f6f7f7;
+    color: var(--rapid-muted);
+    font-weight: 600;
+    border-bottom: 1px solid var(--rapid-card-border);
+}
+
+.rapid-preview-row + .rapid-preview-row {
+    border-top: 1px solid var(--rapid-card-border);
 }
 
 .rapid-categories {
@@ -65,9 +104,20 @@
         --rapid-card-bg: #1e1e1e;
         --rapid-card-border: #3c3c3c;
         --rapid-muted: #bbb;
+        /* Lift the amber so accent text clears AA on the dark card. */
+        --rapid-accent: #ff7a45;
+        --rapid-accent-edge: #ff7a45;
     }
 
     .rapid-intro {
-        background: linear-gradient(135deg, #1c2530, #1e1e1e);
+        background: linear-gradient(135deg, #2a1c14, #1e1e1e);
+    }
+
+    .rapid-intro code {
+        background: rgba(255, 122, 69, 0.14);
+    }
+
+    .rapid-preview-head {
+        background: #2a2a2a;
     }
 }
