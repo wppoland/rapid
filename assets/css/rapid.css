@@ -1,18 +1,33 @@
 /**
  * Rapid — storefront quick-order form styles.
  *
- * Modern, accessible and theme-friendly: custom properties for easy overriding,
- * a responsive table that collapses to cards on small screens, visible focus
- * states, and motion guarded by prefers-reduced-motion. No layout shift.
+ * Grounded in a dispatch/courier world: this is an order pad buyers fill fast
+ * and fire off in one submit. The accent is a warm rush-amber (not default
+ * WooCommerce blue), the submit button is a "dispatch chute" that launches a
+ * velocity streak on press, and rows with a quantity get a quiet amber edge so
+ * the buyer watches their order tally build.
+ *
+ * Themeable: every colour is a --rapid-* custom property with a theme-inheriting
+ * fallback, so a theme can override the accent without touching this file.
+ * Quality floor held: responsive, visible focus, ARIA-friendly, no layout shift,
+ * vanilla, motion guarded by prefers-reduced-motion, dark-scheme aware.
  */
 
 .rapid {
+    /* Rush-amber dispatch accent — the world of express orders, not WC blue. */
+    --rapid-accent: #f4561e;
+    --rapid-accent-strong: #c93c0c;
+    --rapid-accent-soft: rgba(244, 86, 30, 0.16);
+    --rapid-accent-ink: #ffffff;
+
     --rapid-border: #e2e4e7;
     --rapid-muted: #50575e;
-    --rapid-accent: #2271b1;
-    --rapid-row-hover: #f6f7f7;
+    --rapid-surface: #ffffff;
+    --rapid-row-hover: #fbf6f3;
     --rapid-radius: 10px;
+
     margin: 1.5rem 0;
+    color: inherit;
 }
 
 .rapid__notices {
@@ -45,13 +60,15 @@
     border: 1px solid var(--rapid-border);
     border-radius: 8px;
     font-size: 1rem;
+    background: var(--rapid-surface);
+    color: inherit;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .rapid__search:focus-visible {
     outline: none;
     border-color: var(--rapid-accent);
-    box-shadow: 0 0 0 3px rgba(34, 113, 177, 0.2);
+    box-shadow: 0 0 0 3px var(--rapid-accent-soft);
 }
 
 .rapid__status {
@@ -71,6 +88,7 @@
     border: 1px solid var(--rapid-border);
     border-radius: var(--rapid-radius);
     overflow: hidden;
+    background: var(--rapid-surface);
 }
 
 .rapid__table th,
@@ -89,11 +107,19 @@
 }
 
 .rapid__row {
-    transition: background-color 0.12s ease;
+    /* The amber edge marks rows queued for dispatch — drawn as a transparent
+       border so it reserves its space up front: zero layout shift on toggle. */
+    border-left: 3px solid transparent;
+    transition: background-color 0.12s ease, border-left-color 0.18s ease;
 }
 
 .rapid__row:hover {
     background: var(--rapid-row-hover);
+}
+
+.rapid__row.is-queued {
+    border-left-color: var(--rapid-accent);
+    background: var(--rapid-accent-soft);
 }
 
 .rapid__col-image img {
@@ -118,12 +144,15 @@
     border-radius: 8px;
     font-size: 1rem;
     text-align: center;
+    background: var(--rapid-surface);
+    color: inherit;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .rapid__qty:focus-visible {
     outline: none;
     border-color: var(--rapid-accent);
-    box-shadow: 0 0 0 3px rgba(34, 113, 177, 0.2);
+    box-shadow: 0 0 0 3px var(--rapid-accent-soft);
 }
 
 .rapid__qty:disabled {
@@ -138,12 +167,99 @@
 }
 
 .rapid__actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
     margin-top: 1rem;
 }
 
+/* The running tally — how many lines are queued for dispatch. */
+.rapid__tally {
+    font-size: 0.9rem;
+    color: var(--rapid-muted);
+}
+
+.rapid__tally-count {
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    color: var(--rapid-accent-strong);
+}
+
+/* ---- The moment: the submit button is a dispatch chute. ----
+   On press a velocity streak sweeps left-to-right — the order rushing out.
+   The button itself is themeable via the accent tokens and stands clearly
+   apart from a default theme button. */
+.rapid__submit.button,
+.rapid__submit {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    border: 0;
+    border-radius: 9px;
+    padding: 0.7rem 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    color: var(--rapid-accent-ink);
+    background: linear-gradient(135deg, var(--rapid-accent) 0%, var(--rapid-accent-strong) 100%);
+    box-shadow: 0 1px 2px rgba(201, 60, 12, 0.35), 0 6px 16px -8px rgba(201, 60, 12, 0.55);
+    transition: transform 0.12s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+
+.rapid__submit:hover {
+    filter: saturate(1.08) brightness(1.03);
+    box-shadow: 0 1px 2px rgba(201, 60, 12, 0.4), 0 10px 22px -8px rgba(201, 60, 12, 0.6);
+}
+
+.rapid__submit:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--rapid-surface), 0 0 0 6px var(--rapid-accent);
+}
+
+.rapid__submit:active {
+    transform: translateY(1px);
+}
+
+/* The streak: a thin bright shear that rides across the face of the button. */
+.rapid__submit::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+        100deg,
+        transparent 0%,
+        transparent 38%,
+        rgba(255, 255, 255, 0.85) 50%,
+        transparent 62%,
+        transparent 100%
+    );
+    transform: translateX(-120%) skewX(-12deg);
+    opacity: 0;
+}
+
+/* Fire the streak when the order is launched (set by JS on submit). */
+.rapid__submit.is-launching::after {
+    animation: rapid-streak 0.55s ease-out;
+}
+
+@keyframes rapid-streak {
+    0% {
+        transform: translateX(-120%) skewX(-12deg);
+        opacity: 0;
+    }
+    15% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(120%) skewX(-12deg);
+        opacity: 0;
+    }
+}
+
 .rapid__submit[aria-busy="true"] {
-    opacity: 0.7;
     cursor: progress;
+    filter: saturate(0.9) brightness(0.98);
 }
 
 /* Responsive: collapse the table into stacked cards on small screens. */
@@ -169,9 +285,14 @@
 
     .rapid__row {
         border: 1px solid var(--rapid-border);
+        border-left-width: 3px;
         border-radius: var(--rapid-radius);
         margin-bottom: 0.75rem;
         padding: 0.25rem 0.5rem;
+    }
+
+    .rapid__row.is-queued {
+        border-left-color: var(--rapid-accent);
     }
 
     .rapid__table td {
@@ -197,10 +318,29 @@
     }
 }
 
+/* Dark-scheme: lift surfaces, keep the rush-amber accent legible. */
+@media (prefers-color-scheme: dark) {
+    .rapid {
+        --rapid-accent: #ff6a35;
+        --rapid-accent-strong: #f4561e;
+        --rapid-accent-soft: rgba(255, 106, 53, 0.18);
+        --rapid-accent-ink: #1a0e08;
+        --rapid-border: #3a3f45;
+        --rapid-muted: #aeb4ba;
+        --rapid-surface: #1f2327;
+        --rapid-row-hover: #2a2420;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .rapid__search,
     .rapid__qty,
-    .rapid__row {
+    .rapid__row,
+    .rapid__submit {
         transition: none;
+    }
+
+    .rapid__submit.is-launching::after {
+        animation: none;
     }
 }
