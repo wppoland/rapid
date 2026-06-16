@@ -20,12 +20,15 @@ products to the cart in a **single submit** — no clicking through product page
 It is built for B2B, wholesale, trade and reorder workflows, where buyers know
 what they want and value speed over browsing.
 
+The code lives on GitHub at https://github.com/wppoland/rapid — that is the
+place to read the source, file a bug or send a patch.
+
 = Features =
 
 * A `[rapid_order]` shortcode that renders a searchable product table/form.
 * Live AJAX product search by name or SKU (debounced, no page reload).
 * Configurable product scope: **all products** or **selected categories only**.
-* Batched add-to-cart: set quantities on many products, add them all at once with a single combined notice.
+* Batched add-to-cart: set quantities on many products and add them all in one submit, with a notice summarising how many went into the cart.
 * Choose which columns to show: image, SKU, price, stock.
 * Configurable search results per page.
 * Works without JavaScript: the first page of products renders as a plain table and the submit still batches into the cart.
@@ -66,7 +69,8 @@ live search and category filter are progressive enhancements.
 = How does adding to the cart work? =
 
 Enter a quantity for each product you want, then click "Add selected to cart".
-All products with a quantity are added in one go and you get a single notice.
+Every product with a quantity is added in one submit, and you get a notice
+saying how many were added (and how many, if any, could not be).
 
 == Screenshots ==
 
