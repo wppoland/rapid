@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-14T21:58:46+00:00\n"
+"POT-Creation-Date: 2026-06-16T20:24:04+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: rapid\n"
@@ -73,94 +73,120 @@ msgstr ""
 msgid "Show the quick order form on the storefront."
 msgstr ""
 
-#: src/Admin/Settings.php:148
+#: src/Admin/Settings.php:142
+msgid "When off, the shortcode renders nothing — handy while you set things up. Turn it on once you are ready for customers to use it."
+msgstr ""
+
+#: src/Admin/Settings.php:151
 msgid "Product scope"
 msgstr ""
 
-#: src/Admin/Settings.php:153
+#: src/Admin/Settings.php:156
 msgid "Which products?"
 msgstr ""
 
-#: src/Admin/Settings.php:162
+#: src/Admin/Settings.php:165
 msgid "All products"
 msgstr ""
 
-#: src/Admin/Settings.php:165
+#: src/Admin/Settings.php:168
 msgid "Selected categories only"
 msgstr ""
 
-#: src/Admin/Settings.php:175
+#: src/Admin/Settings.php:172
+msgid "Limits what customers can search and add. Leave on \"All products\" for a general reorder form, or pick categories to scope it to one range (for example wholesale lines only)."
+msgstr ""
+
+#: src/Admin/Settings.php:181
 msgid "Categories"
 msgstr ""
 
-#: src/Admin/Settings.php:179
+#: src/Admin/Settings.php:185
 msgid "No product categories found yet."
 msgstr ""
 
-#: src/Admin/Settings.php:182
+#: src/Admin/Settings.php:188
 msgid "Product categories"
 msgstr ""
 
-#: src/Admin/Settings.php:203
+#: src/Admin/Settings.php:202
+msgid "Only products in the ticked categories appear in the form. Tick none and the form falls back to showing all products."
+msgstr ""
+
+#: src/Admin/Settings.php:212
 msgid "Columns"
 msgstr ""
 
-#: src/Admin/Settings.php:204
-msgid "Choose which columns appear in the order table. Product name and quantity are always shown."
+#: src/Admin/Settings.php:213
+msgid "Choose which columns appear in the order table. Product name and quantity are always shown — for example:"
 msgstr ""
 
-#: src/Admin/Settings.php:208
+#: src/Admin/Settings.php:216
+#: templates/order-form.php:61
+#: templates/order-form.php:96
+msgid "Product"
+msgstr ""
+
+#: src/Admin/Settings.php:217
+msgid "Qty"
+msgstr ""
+
+#: src/Admin/Settings.php:220
+msgid "Espresso beans, 1 kg"
+msgstr ""
+
+#: src/Admin/Settings.php:227
 #: templates/order-form.php:59
 #: templates/order-form.php:85
 msgid "Image"
 msgstr ""
 
-#: src/Admin/Settings.php:208
+#: src/Admin/Settings.php:227
 msgid "Show a product thumbnail."
 msgstr ""
 
-#: src/Admin/Settings.php:209
+#: src/Admin/Settings.php:228
 #: templates/order-form.php:63
 #: templates/order-form.php:104
 msgid "SKU"
 msgstr ""
 
-#: src/Admin/Settings.php:209
+#: src/Admin/Settings.php:228
 msgid "Show the product SKU."
 msgstr ""
 
-#: src/Admin/Settings.php:210
+#: src/Admin/Settings.php:229
 #: templates/order-form.php:66
 #: templates/order-form.php:107
 msgid "Price"
 msgstr ""
 
-#: src/Admin/Settings.php:210
+#: src/Admin/Settings.php:229
 msgid "Show the product price."
 msgstr ""
 
-#: src/Admin/Settings.php:211
+#: src/Admin/Settings.php:230
 #: templates/order-form.php:69
 #: templates/order-form.php:110
 msgid "Stock"
 msgstr ""
 
-#: src/Admin/Settings.php:211
+#: src/Admin/Settings.php:230
 msgid "Show stock availability."
 msgstr ""
 
-#: src/Admin/Settings.php:218
+#: src/Admin/Settings.php:237
 msgid "Search"
 msgstr ""
 
-#: src/Admin/Settings.php:223
+#: src/Admin/Settings.php:242
 msgid "Results per page"
 msgstr ""
 
 #. translators: 1: minimum, 2: maximum
-#: src/Admin/Settings.php:240
+#: src/Admin/Settings.php:259
 #, php-format
-msgid "Between %1$d and %2$d."
+msgid "How many matches to show before customers load more. Lower keeps the form compact and quick; higher shows more at once. Between %1$d and %2$d."
 msgstr ""
 
 #: src/Service/OrderForm.php:86
@@ -227,11 +253,6 @@ msgstr ""
 msgid "Search by name or SKU…"
 msgstr ""
 
-#: templates/order-form.php:61
-#: templates/order-form.php:96
-msgid "Product"
-msgstr ""
-
 #: templates/order-form.php:71
 #: templates/order-form.php:112
 msgid "Quantity"
@@ -249,4 +270,8 @@ msgstr ""
 
 #: templates/order-form.php:139
 msgid "Add selected to cart"
+msgstr ""
+
+#: templates/order-form.php:143
+msgid "lines queued"
 msgstr ""

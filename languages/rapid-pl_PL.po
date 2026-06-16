@@ -4,17 +4,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Rapid - Quick Order Form for WooCommerce 0.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/rapid\n"
+"POT-Creation-Date: 2026-06-16T20:24:04+00:00\n"
+"PO-Revision-Date: 2026-06-15 00:00+0000\n"
 "Last-Translator: WPPoland <kontakt@wppoland.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "Language: pl_PL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-14T21:58:46+00:00\n"
-"PO-Revision-Date: 2026-06-15 00:00+0000\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: rapid\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 "
+"|| n%100>14) ? 1 : 2);\n"
 
 #. Plugin Name of the plugin
 #: rapid.php
@@ -28,8 +29,12 @@ msgstr "https://plogins.com/rapid/"
 
 #. Description of the plugin
 #: rapid.php
-msgid "A fast bulk order form so B2B and wholesale buyers can add many products at once."
-msgstr "Szybki formularz zamówień zbiorczych, dzięki któremu kupujący B2B i hurtowi mogą dodać wiele produktów naraz."
+msgid ""
+"A fast bulk order form so B2B and wholesale buyers can add many products at "
+"once."
+msgstr ""
+"Szybki formularz zamówień zbiorczych, dzięki któremu kupujący B2B i hurtowi "
+"mogą dodać wiele produktów naraz."
 
 #. Author of the plugin
 #: rapid.php
@@ -42,8 +47,11 @@ msgid "https://plogins.com/"
 msgstr "https://plogins.com/"
 
 #: rapid.php:47
-msgid "Rapid - Quick Order Form for WooCommerce requires WooCommerce to be active."
-msgstr "Rapid - Szybki formularz zamówień dla WooCommerce wymaga aktywnego WooCommerce."
+msgid ""
+"Rapid - Quick Order Form for WooCommerce requires WooCommerce to be active."
+msgstr ""
+"Rapid - Szybki formularz zamówień dla WooCommerce wymaga aktywnego "
+"WooCommerce."
 
 #: src/Admin/Settings.php:65
 msgid "Rapid — Quick Order Form"
@@ -60,8 +68,14 @@ msgstr "Szybki formularz zamówień zbiorczych dla Twojego sklepu"
 #. translators: %s: shortcode wrapped in <code>.
 #: src/Admin/Settings.php:112
 #, php-format
-msgid "Drop %s into any page to let customers search products by name or SKU, set quantities and add many to the cart in one click — perfect for B2B, wholesale and reorders."
-msgstr "Umieść %s na dowolnej stronie, aby klienci mogli wyszukiwać produkty po nazwie lub SKU, ustawiać ilości i dodawać wiele pozycji do koszyka jednym kliknięciem — idealne dla B2B, sprzedaży hurtowej i ponownych zamówień."
+msgid ""
+"Drop %s into any page to let customers search products by name or SKU, set "
+"quantities and add many to the cart in one click — perfect for B2B, "
+"wholesale and reorders."
+msgstr ""
+"Umieść %s na dowolnej stronie, aby klienci mogli wyszukiwać produkty po "
+"nazwie lub SKU, ustawiać ilości i dodawać wiele pozycji do koszyka jednym "
+"kliknięciem — idealne dla B2B, sprzedaży hurtowej i ponownych zamówień."
 
 #: src/Admin/Settings.php:123
 msgid "General"
@@ -75,95 +89,127 @@ msgstr "Włącz szybkie zamawianie"
 msgid "Show the quick order form on the storefront."
 msgstr "Wyświetlaj szybki formularz zamówień w sklepie."
 
-#: src/Admin/Settings.php:148
+#: src/Admin/Settings.php:142
+msgid ""
+"When off, the shortcode renders nothing — handy while you set things up. "
+"Turn it on once you are ready for customers to use it."
+msgstr ""
+
+#: src/Admin/Settings.php:151
 msgid "Product scope"
 msgstr "Zakres produktów"
 
-#: src/Admin/Settings.php:153
+#: src/Admin/Settings.php:156
 msgid "Which products?"
 msgstr "Które produkty?"
 
-#: src/Admin/Settings.php:162
+#: src/Admin/Settings.php:165
 msgid "All products"
 msgstr "Wszystkie produkty"
 
-#: src/Admin/Settings.php:165
+#: src/Admin/Settings.php:168
 msgid "Selected categories only"
 msgstr "Tylko wybrane kategorie"
 
-#: src/Admin/Settings.php:175
+#: src/Admin/Settings.php:172
+msgid ""
+"Limits what customers can search and add. Leave on \"All products\" for a "
+"general reorder form, or pick categories to scope it to one range (for "
+"example wholesale lines only)."
+msgstr ""
+
+#: src/Admin/Settings.php:181
 msgid "Categories"
 msgstr "Kategorie"
 
-#: src/Admin/Settings.php:179
+#: src/Admin/Settings.php:185
 msgid "No product categories found yet."
 msgstr "Nie znaleziono jeszcze żadnych kategorii produktów."
 
-#: src/Admin/Settings.php:182
+#: src/Admin/Settings.php:188
 msgid "Product categories"
 msgstr "Kategorie produktów"
 
-#: src/Admin/Settings.php:203
+#: src/Admin/Settings.php:202
+msgid ""
+"Only products in the ticked categories appear in the form. Tick none and the "
+"form falls back to showing all products."
+msgstr ""
+
+#: src/Admin/Settings.php:212
 msgid "Columns"
 msgstr "Kolumny"
 
-#: src/Admin/Settings.php:204
-msgid "Choose which columns appear in the order table. Product name and quantity are always shown."
-msgstr "Wybierz, które kolumny mają się pojawiać w tabeli zamówień. Nazwa produktu i ilość są wyświetlane zawsze."
+#: src/Admin/Settings.php:213
+msgid ""
+"Choose which columns appear in the order table. Product name and quantity "
+"are always shown — for example:"
+msgstr ""
 
-#: src/Admin/Settings.php:208
-#: templates/order-form.php:59
+#: src/Admin/Settings.php:216 templates/order-form.php:61
+#: templates/order-form.php:96
+msgid "Product"
+msgstr "Produkt"
+
+#: src/Admin/Settings.php:217
+msgid "Qty"
+msgstr ""
+
+#: src/Admin/Settings.php:220
+msgid "Espresso beans, 1 kg"
+msgstr ""
+
+#: src/Admin/Settings.php:227 templates/order-form.php:59
 #: templates/order-form.php:85
 msgid "Image"
 msgstr "Zdjęcie"
 
-#: src/Admin/Settings.php:208
+#: src/Admin/Settings.php:227
 msgid "Show a product thumbnail."
 msgstr "Wyświetlaj miniaturę produktu."
 
-#: src/Admin/Settings.php:209
-#: templates/order-form.php:63
+#: src/Admin/Settings.php:228 templates/order-form.php:63
 #: templates/order-form.php:104
 msgid "SKU"
 msgstr "SKU"
 
-#: src/Admin/Settings.php:209
+#: src/Admin/Settings.php:228
 msgid "Show the product SKU."
 msgstr "Wyświetlaj SKU produktu."
 
-#: src/Admin/Settings.php:210
-#: templates/order-form.php:66
+#: src/Admin/Settings.php:229 templates/order-form.php:66
 #: templates/order-form.php:107
 msgid "Price"
 msgstr "Cena"
 
-#: src/Admin/Settings.php:210
+#: src/Admin/Settings.php:229
 msgid "Show the product price."
 msgstr "Wyświetlaj cenę produktu."
 
-#: src/Admin/Settings.php:211
-#: templates/order-form.php:69
+#: src/Admin/Settings.php:230 templates/order-form.php:69
 #: templates/order-form.php:110
 msgid "Stock"
 msgstr "Stan magazynowy"
 
-#: src/Admin/Settings.php:211
+#: src/Admin/Settings.php:230
 msgid "Show stock availability."
 msgstr "Wyświetlaj dostępność magazynową."
 
-#: src/Admin/Settings.php:218
+#: src/Admin/Settings.php:237
 msgid "Search"
 msgstr "Wyszukiwanie"
 
-#: src/Admin/Settings.php:223
+#: src/Admin/Settings.php:242
 msgid "Results per page"
 msgstr "Wyników na stronę"
 
 #. translators: 1: minimum, 2: maximum
-#: src/Admin/Settings.php:240
+#: src/Admin/Settings.php:259
 #, php-format
-msgid "Between %1$d and %2$d."
-msgstr "Od %1$d do %2$d."
+msgid ""
+"How many matches to show before customers load more. Lower keeps the form "
+"compact and quick; higher shows more at once. Between %1$d and %2$d."
+msgstr ""
 
 #: src/Service/OrderForm.php:86
 msgid "Searching…"
@@ -232,13 +278,7 @@ msgstr "Szukaj produktów"
 msgid "Search by name or SKU…"
 msgstr "Szukaj po nazwie lub SKU…"
 
-#: templates/order-form.php:61
-#: templates/order-form.php:96
-msgid "Product"
-msgstr "Produkt"
-
-#: templates/order-form.php:71
-#: templates/order-form.php:112
+#: templates/order-form.php:71 templates/order-form.php:112
 msgid "Quantity"
 msgstr "Ilość"
 
@@ -255,3 +295,18 @@ msgstr "Ilość dla %s"
 #: templates/order-form.php:139
 msgid "Add selected to cart"
 msgstr "Dodaj zaznaczone do koszyka"
+
+#: templates/order-form.php:143
+msgid "lines queued"
+msgstr ""
+
+#~ msgid ""
+#~ "Choose which columns appear in the order table. Product name and quantity "
+#~ "are always shown."
+#~ msgstr ""
+#~ "Wybierz, które kolumny mają się pojawiać w tabeli zamówień. Nazwa "
+#~ "produktu i ilość są wyświetlane zawsze."
+
+#, php-format
+#~ msgid "Between %1$d and %2$d."
+#~ msgstr "Od %1$d do %2$d."
