@@ -138,6 +138,9 @@ final class Settings implements HasHooks
                                         />
                                         <?php esc_html_e('Show the quick order form on the storefront.', 'rapid'); ?>
                                     </label>
+                                    <p class="description">
+                                        <?php esc_html_e('When off, the shortcode renders nothing — handy while you set things up. Turn it on once you are ready for customers to use it.', 'rapid'); ?>
+                                    </p>
                                 </td>
                             </tr>
                         </tbody>
@@ -165,6 +168,9 @@ final class Settings implements HasHooks
                                             <?php esc_html_e('Selected categories only', 'rapid'); ?>
                                         </option>
                                     </select>
+                                    <p class="description">
+                                        <?php esc_html_e('Limits what customers can search and add. Leave on "All products" for a general reorder form, or pick categories to scope it to one range (for example wholesale lines only).', 'rapid'); ?>
+                                    </p>
                                 </td>
                             </tr>
                             <tr
@@ -192,6 +198,9 @@ final class Settings implements HasHooks
                                                 </label>
                                             <?php endforeach; ?>
                                         </fieldset>
+                                        <p class="description">
+                                            <?php esc_html_e('Only products in the ticked categories appear in the form. Tick none and the form falls back to showing all products.', 'rapid'); ?>
+                                        </p>
                                     <?php endif; ?>
                                 </td>
                             </tr>
@@ -201,7 +210,17 @@ final class Settings implements HasHooks
 
                 <div class="rapid-card">
                     <h2><?php esc_html_e('Columns', 'rapid'); ?></h2>
-                    <p class="description"><?php esc_html_e('Choose which columns appear in the order table. Product name and quantity are always shown.', 'rapid'); ?></p>
+                    <p class="description"><?php esc_html_e('Choose which columns appear in the order table. Product name and quantity are always shown — for example:', 'rapid'); ?></p>
+                    <div class="rapid-preview" aria-hidden="true">
+                        <div class="rapid-preview-head">
+                            <span><?php esc_html_e('Product', 'rapid'); ?></span>
+                            <span><?php esc_html_e('Qty', 'rapid'); ?></span>
+                        </div>
+                        <div class="rapid-preview-row">
+                            <span><?php esc_html_e('Espresso beans, 1 kg', 'rapid'); ?></span>
+                            <span>2</span>
+                        </div>
+                    </div>
                     <table class="form-table" role="presentation">
                         <tbody>
                             <?php
@@ -237,7 +256,7 @@ final class Settings implements HasHooks
                                         <?php
                                         printf(
                                             /* translators: 1: minimum, 2: maximum */
-                                            esc_html__('Between %1$d and %2$d.', 'rapid'),
+                                            esc_html__('How many matches to show before customers load more. Lower keeps the form compact and quick; higher shows more at once. Between %1$d and %2$d.', 'rapid'),
                                             (int) self::MIN_PER_PAGE,
                                             (int) self::MAX_PER_PAGE,
                                         );
