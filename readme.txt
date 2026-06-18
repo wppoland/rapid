@@ -23,6 +23,15 @@ what they want and value speed over browsing.
 The code lives on GitHub at https://github.com/wppoland/rapid — that is the
 place to read the source, file a bug or send a patch.
 
+= Documentation and links =
+
+* **Documentation** - https://plogins.com/rapid/docs/
+* **Plugin page** - https://plogins.com/rapid/
+* **Source code** - https://github.com/wppoland/rapid
+* **Bug reports and feature requests** - https://github.com/wppoland/rapid/issues
+* **Discussions and questions** - https://github.com/wppoland/rapid/discussions
+
+
 = Features =
 
 * A `[rapid_order]` shortcode that renders a searchable product table/form.
