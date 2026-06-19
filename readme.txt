@@ -5,7 +5,7 @@ Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 8.1
 Requires Plugins: woocommerce
-Stable tag: 0.1.0
+Stable tag: 0.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -95,6 +95,9 @@ No. The form works for guests and logged-in customers; cart behaviour follows yo
 Rapid does not connect to any external services. The live product search runs against your own store: the form posts to your site's `admin-ajax.php` and queries your existing WooCommerce products by name or SKU, and the batched add-to-cart uses WooCommerce's own cart. Rapid stores only two options in your WordPress database (`rapid_settings` and `rapid_db_version`); it creates no custom tables and sends no email.
 
 == Changelog ==
+
+= 0.1.1 =
+* Add `rapid/bulk_paste_prefill` filter and `rapid/bulk_paste_form_extra` / `rapid/bulk_paste_after_form` actions for PRO bulk-paste integrations (saved SKU lists).
 
 = 0.1.0 =
 * Initial release: `[rapid_order]` shortcode with AJAX product search by name or SKU, configurable product scope (all / selected categories), batched add-to-cart with a single notice, selectable columns (image / SKU / price / stock) and results-per-page.
