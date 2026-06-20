@@ -326,11 +326,25 @@ final class OrderForm implements HasHooks
             $imageUrl = wc_placeholder_img_src('thumbnail');
         }
 
+        $priceHtml = '';
+
+        if ($this->showPrice($settings)) {
+            $priceHtml = $product->get_price_html();
+            /**
+             * Filter the price HTML shown for a product in the quick-order table.
+             *
+             * @param string               $priceHtml WooCommerce price markup.
+             * @param \WC_Product          $product   Product being presented.
+             * @param array<string, mixed> $settings  Rapid settings.
+             */
+            $priceHtml = (string) apply_filters('rapid/product_price_html', $priceHtml, $product, $settings);
+        }
+
         return [
             'id'          => $product->get_id(),
             'name'        => $product->get_name(),
             'sku'         => (string) $product->get_sku(),
-            'priceHtml'   => $this->showPrice($settings) ? $product->get_price_html() : '',
+            'priceHtml'   => $priceHtml,
             'stockHtml'   => $this->showStock($settings) ? $this->stockLabel($product) : '',
             'imageUrl'    => $imageUrl,
             'permalink'   => get_permalink($product->get_id()) ?: '',
