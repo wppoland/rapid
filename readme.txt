@@ -15,12 +15,12 @@ A fast bulk order form so B2B and wholesale buyers can add many products at once
 
 Rapid adds a searchable quick-order form to your WooCommerce store. Customers
 find products by **name or SKU**, set quantities in a compact table and add many
-products to the cart in a **single submit** — no clicking through product pages.
+products to the cart in a **single submit**, no clicking through product pages.
 
 It is built for B2B, wholesale, trade and reorder workflows, where buyers know
 what they want and value speed over browsing.
 
-The code lives on GitHub at https://github.com/wppoland/rapid — that is the
+The code lives on GitHub at https://github.com/wppoland/rapid; that is the
 place to read the source, file a bug or send a patch.
 
 = Documentation and links =
