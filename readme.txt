@@ -84,6 +84,11 @@ saying how many were added (and how many, if any, could not be).
 
 No. The form works for guests and logged-in customers; cart behaviour follows your normal WooCommerce guest-checkout settings.
 
+
+= Does this plugin work on WordPress Multisite? =
+
+Yes. This plugin is compatible with WordPress Multisite. Network activate it or activate it on individual sites; each site keeps its own settings and data.
+
 == Screenshots ==
 
 1. The quick order form with live search and quantity inputs.
